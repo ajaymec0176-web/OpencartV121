@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="INFO">
+
+
+
+<!-- 
+		
+Log files === used to track the information 
+
+Log Levels ====  All  <  Trace  < Debug  < Info  < Warn  < Error  < Fatal  <  Off
+
+In above All & Off == these are the options wee can set in Log4j.xml configuration file 
+
+	If you set log level as ==  Trace then you will get all types logs levels from Trace level to lower level mean all from Trace  < Debug  < Info  < Warn  < Error  < Fatal
+	
+	Trace will give more detailed levels of logs which we cannot understand 
+-->
+<!-- log files we need to generate with timestamp -->
+<Properties>
+       <Property name="basePath">./logs</Property> <!-- basePath is variable declaration where log file need to generate ./ represent current poject directory inside it in logs folder-->
+</Properties>
+
+<Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+       <PatternLayout pattern="%d{HH:mm:ss:SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    
+    <RollingFile name="File" fileName="${basePath}/automation.log" filePattern="${basePath}/automation-%d{yyyy-MM-dd}.log">
+        <PatternLayout pattern="%d{HH:mm:ss:SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        <SizeBasedTriggeringPolicy size="50000"/>
+    </RollingFile>
+        
+</Appenders>
+
+<Loggers>
+   <Root level="Info"> <!-- here you can use multiple log levels All < Trace < Debug < Info < Warn < Error < Fatal < Off -->
+       <!-- if we put level="Off"  mean even though u written all log statemnets in code still, No messages will Log in log file  --> 
+       <!-- if we put level="All"  means every Log will generate -->
+       <!-- in AppenderRef we will specify where we want to generate logs file/console -->
+        <AppenderRef ref="Console"/>        <!-- will generate log in console -->
+       <!-- <AppenderRef ref="File"/>   -->            <!-- will generete logs in log file-->   
+   </Root>
+   
+</Loggers>
+
+</Configuration>
